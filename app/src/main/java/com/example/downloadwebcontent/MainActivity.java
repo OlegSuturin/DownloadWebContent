@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,19 +18,24 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String mailRu = "https://mail.ru/";
+    private String mailRu = "https://ndscalc.ru";
     private String result;
+
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Log.i("Hello", mailRu);
+        textView = findViewById(R.id.textView);
+
         DownloadTask task = new DownloadTask();
         try {
             result = task.execute(mailRu).get();
-            Log.i("!@#", result);
+            //Log.i("!@#", result);
+            textView.setText(result);
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
